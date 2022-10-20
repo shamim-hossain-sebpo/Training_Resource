@@ -12,9 +12,13 @@ public class Problem_6 {
 //        in : p out: unique
 //        do this with java regex besides ur regex learning
 
-        String input = "<div>I love my country</div><p>hello, how are you?</p> <div> This is shamim hossain <span> lksdjf </span> </div>";
+        String input = "<div>I love my country" +
+                "</div><p>hello, " +
+                "how are you?</p> <div> This is shamim hossain" +
+                " <span> lksdjf </span> " +
+                "</div>";
 
-        String regex = "<(div)>.*?</\\1>";
+        String regex = "<(?s)(div)>.*?</\\1>";
 
         Pattern duplicateTagPattern = Pattern.compile(regex);
         Matcher duplicateTapMatcher = duplicateTagPattern.matcher(input);

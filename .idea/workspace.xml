@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e609de39-ccb0-40f8-96f3-21821eb71786" name="Default Changelist" comment="File Added">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Positive_Look_Ahead.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_5.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_7.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_8.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Exercise.java" afterDir="false" />
+    <list default="true" id="e609de39-ccb0-40f8-96f3-21821eb71786" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_10.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_11.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_12.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_13.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_14.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_9.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/RegexImplementation/TestRegex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/RegexImplementation/TestRegex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/StringImplementation/PartA/Problem_partB_2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/StringImplementation/PartA/Problem_partB_2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RegexImplementation/TestRegex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/TestRegex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/StringImplementation/PartA/Problem_partB_2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/StringImplementation/PartA/Problem_partB_2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -35,11 +27,107 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_8.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="71" />
+            <state relative-caret-position="418">
+              <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_9.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_10.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_11.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_13.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_12.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_14.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="24" column="43" lean-forward="true" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Exercise.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="139" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,6 +175,13 @@
         <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Exercise.java" />
         <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_7.java" />
         <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_8.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_9.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_10.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_13.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_12.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_14.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_11.java" />
       </list>
     </option>
   </component>
@@ -102,8 +197,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -137,23 +230,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="RegexImplementation" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="groovyTest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="groovyTest" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="RegexImplementation" type="462c0819:PsiDirectoryNode" />
-              <item name="Problem_Solving" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1666193436452" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1666279568505" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -176,9 +262,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Problem_8">
-    <configuration name="Problem_4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_4" />
+  <component name="RunManager" selected="Application.Problem_11">
+    <configuration name="Problem_11" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_11" />
       <module name="com.sebpo.groovyTest.main" />
       <extension name="coverage">
         <pattern>
@@ -190,8 +276,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Problem_5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_5" />
+    <configuration name="Problem_12" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_12" />
+      <module name="com.sebpo.groovyTest.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="RegexImplementation.Problem_Solving.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Problem_13" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_13" />
+      <module name="com.sebpo.groovyTest.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="RegexImplementation.Problem_Solving.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Problem_14" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_14" />
       <module name="com.sebpo.groovyTest.main" />
       <extension name="coverage">
         <pattern>
@@ -216,39 +328,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Problem_7" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_7" />
-      <module name="com.sebpo.groovyTest.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="RegexImplementation.Problem_Solving.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Problem_8" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RegexImplementation.Problem_Solving.Problem_8" />
-      <module name="com.sebpo.groovyTest.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="RegexImplementation.Problem_Solving.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Problem_8" />
-        <item itemvalue="Application.Problem_7" />
+        <item itemvalue="Application.Problem_11" />
         <item itemvalue="Application.Problem_6" />
-        <item itemvalue="Application.Problem_5" />
-        <item itemvalue="Application.Problem_4" />
+        <item itemvalue="Application.Problem_14" />
+        <item itemvalue="Application.Problem_12" />
+        <item itemvalue="Application.Problem_13" />
       </list>
     </recent_temporary>
   </component>
@@ -270,14 +356,21 @@
       <option name="project" value="LOCAL" />
       <updated>1665756125970</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Regex Implementation and problem solving">
+      <created>1666194043852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666194043852</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="48" y="27" width="1872" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26067907" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2667032" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -286,7 +379,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3293348" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -309,7 +402,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="File Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="File Added" />
+    <MESSAGE value="Regex Implementation and problem solving" />
+    <option name="LAST_COMMIT_MESSAGE" value="Regex Implementation and problem solving" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/StringImplementation/PartA/Problem_1.java">
@@ -469,16 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Exercise.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="120" lean-forward="true" selection-start-line="9" selection-start-column="120" selection-end-line="9" selection-end-column="120" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -526,16 +610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_7.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -546,10 +620,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_9.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_13.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_12.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Exercise.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="139" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_10.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_6.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_14.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="24" column="43" lean-forward="true" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_8.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="71" />
+        <state relative-caret-position="418">
+          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_11.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
