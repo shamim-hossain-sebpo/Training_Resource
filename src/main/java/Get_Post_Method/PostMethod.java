@@ -12,7 +12,8 @@ import java.net.URL;
 
 public class PostMethod {
 
-    static final String POST_URL = "https://www.insolvencydirect.bis.gov.uk/eiir/IIRMasterPage.asp";
+    //static final String POST_URL = "https://www.insolvencydirect.bis.gov.uk/eiir/IIRMasterPage.asp";
+    static final String POST_URL = "https://www.njportal.com/DOR/BusinessNameSearch/Search/BusinessName";
     static final String POST_PARAMS = "UserName=Shamim";
     static StringBuilder response;
 

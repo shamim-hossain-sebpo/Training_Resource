@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e609de39-ccb0-40f8-96f3-21821eb71786" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Get_Post_Method/GetMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Samples" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Method.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -29,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/GetMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="-380">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -38,13 +37,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
+            <state relative-caret-position="-12">
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Samples">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Method.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="91" column="61" selection-start-line="91" selection-start-column="61" selection-end-line="91" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1918#1933#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,6 +86,7 @@
       <find>gmail</find>
       <find>Gmail</find>
       <find>google search</find>
+      <find>headers</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -73,7 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/DSA_Collection/Part3_2.java" />
         <option value="$PROJECT_DIR$/src/main/java/StringImplementation/PartA/Problem_partB_2.java" />
         <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/RegEx_Summary_Sheet" />
         <option value="$PROJECT_DIR$/src/main/java/RegexImplementation/Positive_Look_Ahead.java" />
@@ -118,12 +139,13 @@
         <option value="$PROJECT_DIR$/src/main/groovy/File_IO/problem/XLSHandler.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/File_IO/problem/XLSXHandler.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/File_IO/problem/CSVHandler.groovy" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/Get_Post_Method/GetMethod.java" />
         <option value="$PROJECT_DIR$/src/main/groovy/PostDemoURL.groovy" />
         <option value="$USER_HOME$/Downloads/post_sample.groovy" />
+        <option value="$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Samples" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Method.java" />
       </list>
     </option>
   </component>
@@ -139,6 +161,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -163,13 +186,6 @@
               <item name="groovyTest" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="groovyTest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="groovyTest" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -184,11 +200,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1666969533063" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1667231143896" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/post_sample.groovy" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -212,26 +227,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.GetMethod">
+  <component name="RunManager" selected="Application.Post_Method">
     <configuration name="CSVHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="File_IO.problem.CSVHandler" />
       <module name="com.sebpo.groovyTest.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="File_IO.problem.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Clousers_07" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Groovy_Documents.Clousers_07" />
-      <module name="com.sebpo.groovyTest.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Groovy_Documents.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -265,12 +267,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="XLSHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="File_IO.problem.XLSHandler" />
+    <configuration name="Post_Method" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Get_Post_Method.Post_Method" />
       <module name="com.sebpo.groovyTest.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="File_IO.problem.*" />
+          <option name="PATTERN" value="Get_Post_Method.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -293,11 +295,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GetMethod" />
+        <item itemvalue="Application.Post_Method" />
         <item itemvalue="Application.PostMethod" />
+        <item itemvalue="Application.GetMethod" />
         <item itemvalue="Application.CSVHandler" />
         <item itemvalue="Application.XLSXHandler" />
-        <item itemvalue="Application.XLSHandler" />
       </list>
     </recent_temporary>
   </component>
@@ -354,14 +356,30 @@
       <option name="project" value="LOCAL" />
       <updated>1666886028130</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Get and Post Method Implementation">
+      <created>1666969563185</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1666969563185</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="TodoView" selected-index="3">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="48" y="27" width="1872" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.296276" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2995619" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -370,11 +388,11 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293348" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989047" visible="true" weight="0.2780807" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="2" weight="0.3293348" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.4989047" visible="true" weight="0.28353328" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3293348" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3304253" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010953" side_tool="true" weight="0.3293348" />
@@ -427,7 +445,8 @@
     <MESSAGE value="Regex problem solving" />
     <MESSAGE value="Groovy Practice" />
     <MESSAGE value="File I/O Problem Solving" />
-    <option name="LAST_COMMIT_MESSAGE" value="File I/O Problem Solving" />
+    <MESSAGE value="Get and Post Method Implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get and Post Method Implementation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -442,16 +461,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Positive_Look_Ahead.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RegexImplementation/Problem_Solving/Problem_3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -775,27 +784,7 @@
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/groovy/PostDemoURL.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Samples">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/PostDemoURL.groovy" />
     <entry file="file://$USER_HOME$/Downloads/post_sample.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -805,20 +794,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/GetMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="-380">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/PostMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
+        <state relative-caret-position="-12">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Samples">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Get_Post_Method/Post_Method.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="91" column="61" selection-start-line="91" selection-start-column="61" selection-end-line="91" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1918#1933#0" expanded="true" />
           </folding>
         </state>
       </provider>
