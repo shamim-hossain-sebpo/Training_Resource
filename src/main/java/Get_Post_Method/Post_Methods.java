@@ -27,7 +27,7 @@ public class Post_Methods {
     static HttpPost httpPost = new HttpPost(MAIN_URL);
 
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         String htmlResponse = invokeHtmlByGet();
         getParams(htmlResponse);
 
@@ -47,39 +47,39 @@ public class Post_Methods {
         return htmlResponse.toString();
     }
 
-    static String getParams(String htmlResponse) throws IOException{
+    static String getParams(String htmlResponse) throws IOException {
         List<NameValuePair> paramList = new ArrayList<>();
-        paramList.add(new BasicNameValuePair("__RequestVerificationToken",getVerificationToken(htmlResponse)));
-
+        paramList.add(new BasicNameValuePair("__RequestVerificationToken", getVerificationToken(htmlResponse)));
+        String invokeData = "";
         for (char i = 'a'; i <= 'z'; i++) {
-            paramList.add(new BasicNameValuePair("BusinessName",i+"%"));
+            paramList.add(1, new BasicNameValuePair("BusinessName", i + "%"));
             System.out.println(i);
-            String invokedData = invokeDataByPost(paramList);
-            if(i=='c') break;
+            invokeData = invokeDataByPost(paramList);
+            System.out.println(invokeData);
+            //if(i=='b') break;
         }
 
 
-        return "";
+        return invokeData;
     }
 
-    static String getVerificationToken(String htmlResponse){
+    static String getVerificationToken(String htmlResponse) {
         String regex = "__RequestVerificationToken.+?value=\"(.+?)\"";
         Matcher m = Pattern.compile(regex).matcher(htmlResponse);
 
-        if(m.find()) return m.group(1);
+        if (m.find()) return m.group(1);
         return null;
     }
 
-    static String invokeDataByPost(List<NameValuePair> paramList) throws IOException{
+    static String invokeDataByPost(List<NameValuePair> paramList) throws IOException {
         httpPost.setEntity(new UrlEncodedFormEntity(paramList));
         setHeaders(httpPost);
         httpResponse = httpClient.execute(httpPost);
         System.out.println(httpResponse.getStatusLine().getStatusCode());
-        System.out.println(EntityUtils.toString( httpResponse.getEntity()));
-        return "";
+        return EntityUtils.toString(httpResponse.getEntity());
     }
-    
-    static void setHeaders(HttpPost httpPost){
+
+    static void setHeaders(HttpPost httpPost) {
 
         httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         httpPost.setHeader("Accept-Encoding", "gzip, deflate, br");
