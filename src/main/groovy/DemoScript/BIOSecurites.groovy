@@ -5,13 +5,21 @@ import org.apache.http.client.ResponseHandler
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.BasicResponseHandler
 import org.apache.http.impl.client.HttpClients
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.sl.usermodel.Sheet
+import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Workbook
 
 class BIOSecurites {
 
     static final def MAIN_URL = "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-744/appendix-Supplement%20No.%204%20to%20Part%20744";
     static HttpClient httpClient = HttpClients.createDefault();
     static HttpGet httpGet = new HttpGet(MAIN_URL);
-    static def entityName;
+    static def entity;
+    static def entityName = [];
+    static def entityAddress = []
+    static def entityAlias = []
 
     static def sendGet() {
 
@@ -55,13 +63,38 @@ class BIOSecurites {
         def entityData = responseBody =~ /(?is)<tr>.*?(?:<td.*?>(.*?)<\/td>\s*)(?:<td.*?>(.*?)<\/td>).+?<\/tr>/
 
         while (entityData.find()) {
-            entityName = entityData.group(2)
+
+            // --- Getting entity ----
+            entity = entityData.group(2)
+
+            // -
+            def entityMatcher = entity =~ /^.+?(?=,)/
+            if (entityMatcher) {
+                entityName << (entityMatcher.group())
+                println entityName
+            }
         }
 
+    }
+
+
+    static def writeToXls(entityName) {
+
+        def workbookFilename = 'Report3.xls'
+
+
+        new FileOutputStream(new File(workbookFilename)).withStream { stream ->
+            def workbook = Workbook.createWorkbook(stream)
+            def sheet = workbook.createSheet('Report Worksheet', 0)
+
+            workbook.write()
+            workbook.close()
+        }
     }
 
     public static void main(String[] args) {
         def responseBody = sendGet()
         sanitizeData(responseBody)
+        //writeToXls(entityName)
     }
 }

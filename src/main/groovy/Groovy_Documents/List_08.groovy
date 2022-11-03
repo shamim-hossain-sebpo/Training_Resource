@@ -38,6 +38,10 @@ class List_08 {
         println nameList.reverse()                // reverse list.
         println nameList.sort().reverse()         // sorting ascending and descending
 
+        def nuList = [];
+        nuList << 10;
+        println nuList
+
     }
 
 }
