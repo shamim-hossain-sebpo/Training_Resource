@@ -181,5 +181,6 @@ class BoiSecurities {
     //(?=.*a\.k\.a).*?(?ism)-.+?(?=[\.,;]) alias regex.
 
     //(?m)(?=.*(?:a\.k\.a)).*?(?:alias|aliases):\s*(-.+?(?=[\.,;])).*?(-.+?(?=[\.,;])) alias regex.
+    // edited
 }
 
