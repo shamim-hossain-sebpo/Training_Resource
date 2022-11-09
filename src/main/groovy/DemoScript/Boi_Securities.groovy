@@ -23,12 +23,12 @@ class BoiSecurities {
     def allEntity = []
     def entityNameList = []
     def entityAlias = []
-    def entityAddres = []
     def aliasMap = [:]
     def addressMap = [:]
 
-    def countWithAKA =0
-    def countwithountAKA = 0;
+    def countWithAKA = 0
+    def countwithountAKA = 1;
+    def count = 1;
 
     BoiSecurities(context) {
         this.context = context
@@ -42,7 +42,7 @@ class BoiSecurities {
 
         printMapValue()
 
-        println "Scraping Final Data : "+aliasMap.size()
+        println "Scraping Final Data : " + aliasMap.size()
         println "Total Entities ${entityNameList.size()}"
         println "Total Allentity ${allEntity.size()}"
         println "Entity With a.k.a : ${countWithAKA}"
@@ -57,12 +57,14 @@ class BoiSecurities {
         def entity = ""
         //def entityMatcher;
         def entityName;
+        def entityAddress;
+        def aliasList = [];
 
         while (entityData.find()) {
             count++
             // --- Getting entity ---- //
             entity = entityData.group(2)
-             //println entity
+            //println entity
             allEntity.push(entity)
 
             entityAlias.clear()
@@ -71,42 +73,33 @@ class BoiSecurities {
             // -----Getting Name Only----- //
             if (!entity.contains("a.k.a")) {
 
-               def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
+                def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
                 if (entityMatcher) {
 
                     entityName = entityMatcher.group()
-                    entityNameList.push(entityName)
+                    entityAddress = sanitizeAddress(entity, entityName)
+                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : No Alias!======= EntityAddress : ${entityAddress}"
 
-                    if(!aliasMap.containsKey(entityName)){
-                        countwithountAKA++
-                        aliasMap.put(entityName,entityAlias.add("No Alias!"))
-                        addressMap.put(entityName,sanitizeAddress(entity, entityName))
-                    }
 
-                }else{
+                } else {
                     //println entity
                 }
             } else {
 
                 // -----Getting Name and Alias ----- //
-              def entityMatcher = entity =~ /(?m)^.+?(?=(?:\s*?<br>\s*?<br>))/
+                //println entity
+                def entityMatcher = entity =~ /(?m)^.+?(?=(?:\s*?<br>\s*?<br>))/
                 if (entityMatcher) {
                     countWithAKA++
                     entityName = entityMatcher.group()
                     //println entityName
-                    String[] arrayNameAndAlias = sanitizeNameAndAliasWithAKA(entityName).split("-")
-                    entityNameList.push(sanitizeName(arrayNameAndAlias[0]))
+                    entityAddress = sanitizeAddress(entity, entityName)
+                    (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
 
-                    for (int i = 1; i < arrayNameAndAlias.length; i++) {
-                        entityAlias.add(arrayNameAndAlias[i])
-                    }
+                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
-                    if(!aliasMap.containsKey(arrayNameAndAlias[0])){
-                        aliasMap.put(arrayNameAndAlias[0], entityAlias)
-//                    println " entityAliasList :  $entityAlias"
-                        addressMap.put(arrayNameAndAlias[0],sanitizeAddress(entity, entityName))
-                    }
-
+                } else {
+                    //println "withount <br> : $entity"
                 }
             }
 
@@ -114,37 +107,36 @@ class BoiSecurities {
         println "count : ${count}"
     }
 
-    def printMapValue(){
+    def printMapValue() {
         //aliasMap.entrySet().each {entry-> println entry.key+"-------"+entry.value}
         //addressMap.entrySet().each {entry-> println entry.key+"--------"+entry.value}
-
-//        for( i in entityNameList){
-//            println i
-//        }
+//
+        for (i in entityNameList) {
+            //println i
+        }
     }
 
 
     def sanitizeAddress(def entity, def entityName) {
-        def tempAddress = entity.replace(entityName, "")
+        def tempAddress = entity.toString().replace(entityName, "")
         def tempMatcher;
-        tempAddress = tempAddress.replace("<br>", "")
-        tempAddress = tempAddress.replace("<em>", "")
-        tempAddress = tempAddress.replace("</em>", "")
-        tempAddress.trim()
+        //println tempAddress
+        tempAddress = tempAddress.replaceAll("<br>|<em>|</em>", "").trim()
 
         tempMatcher = tempAddress =~ /(?<=[,\.]\s).{3,}/
         if (tempMatcher) {
             tempAddress = tempMatcher.group()
-          return  tempAddress
-        }else{
-           //return tempAddress="No Address!"
             return tempAddress
+        } else {
+            return tempAddress = "No Address!"
         }
+
+        return tempAddress
 
     }
 
     def sanitizeNameAndAlias(def nameAndAlias) {
-        def tempAlias="";
+        def tempAlias = "";
         def tempMatcher;
         tempMatcher = nameAndAlias =~ /(?<=,).+?(?=<br>)/
         if (tempMatcher) {
@@ -153,32 +145,80 @@ class BoiSecurities {
 
         tempAlias.trim()
         tempAlias = tempAlias.replaceAll(/<br>|<em>and<\/em>"/, "")
-        tempAlias = tempAlias.replaceAll(/&amp;/,"&")
+        tempAlias = tempAlias.replaceAll(/&amp;/, "&")
 
 
         return tempAlias
     }
 
-    def sanitizeNameAndAliasWithAKA(def nameAndAlias){
-        def tempAlias="";
+    def separateNameAndAliasWithAKA(def nameAndAlias) {
+        def tempAlias = "";
         def tempMatcher;
-        tempMatcher = nameAndAlias =~ /a\.k\.a.+?(?=<br>)/
-        if (tempMatcher) {
-            tempAlias = nameAndAlias.replace(tempMatcher.group(), "")
+        def aliasList = []
+
+
+        nameAndAlias = sanitizeNameAndAliasEntity(nameAndAlias)
+        //println " ${count++} | $nameAndAlias"
+
+
+        //def nameList = nameAndAlias.toString().split(/(?i)a\.k\.a.+?(?:Alias|Aliases):/).collect { it }
+        def nameList = nameAndAlias.toString().split(/(?i)a\.k\.a.+?(?=<br>)/).collect { it }
+        //println "nameList ${nameList}"
+        def name = nameList[0]
+
+        if (nameList.size() > 2) {
+            nameList.remove(0)
+            aliasList = nameList
+        } else {
+            if (nameList[1] != null && nameList[1].contains("<br>")) {
+                aliasList = nameList[1].split(/<br>/).collect { it }
+            } else {
+                println "Null Value : $nameList"
+            }
         }
-        tempAlias.trim()
-        tempAlias = tempAlias.replaceAll(/<br>|<em>and<\/em>"/, "")
-        tempAlias = tempAlias.replaceAll(/&amp;/,"&")
 
+        //println "Name : ${name} ======== AliasList : $aliasList"
+        aliasList = sanitizeAliasList(aliasList)
 
-        return tempAlias
+        return [name, aliasList]
     }
 
-    def sanitizeName(String name){
-        name = name.replaceAll(/,$/,"").trim()
-        println name
+
+    def sanitizeAliasList(def aliasList) {
+        def tempAliasList = []
+        for (i in aliasList) {
+            i = i.toString().replaceAll(/^.+?(?=\w)/, "")
+            i = i.toString().replaceAll(/<em>and<\/em>/, "")
+            i = i.toString().replaceAll(/&amp;/, "&")
+            tempAliasList << i.trim()
+        }
+        return tempAliasList
+    }
+
+    def sanitizeNameAndAliasEntity(def nameAndAlias) {
+        def tempNameAndAlias = nameAndAlias.toString()
+
+        tempNameAndAlias = tempNameAndAlias.replaceAll(/Lukoil, OAO <br>/, "Lukoil, OAO")
+
+        if (!tempNameAndAlias.contains("alias") && !tempNameAndAlias.contains("<br>")) {
+            tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:a\.k\.a.|f\.k\.a.)/, "a.k.a <br>")
+            //println "inside: $tempNameAndAlias"
+            return tempNameAndAlias
+        }
+
+        if (!tempNameAndAlias.contains("<br>")) {
+            return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:alias|alises):/, "<br>")
+        }
+
+        return tempNameAndAlias
+    }
+
+    def sanitizeName(String name) {
+        name = name.replaceAll(/,\s*$/, "").trim()
+        //println name
         return name
-re  }
+
+    }
 
 
 //------------------------------Misc utils part---------------------//
