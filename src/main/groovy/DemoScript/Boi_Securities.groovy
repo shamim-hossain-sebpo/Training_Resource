@@ -23,12 +23,10 @@ class BoiSecurities {
     def allEntity = []
     def entityNameList = []
     def entityAlias = []
-    def aliasMap = [:]
-    def addressMap = [:]
-
     def countWithAKA = 0
     def countwithountAKA = 1;
     def count = 1;
+    def i = 1;
 
     BoiSecurities(context) {
         this.context = context
@@ -40,9 +38,7 @@ class BoiSecurities {
         //println html
         invokeEntity(html)
 
-        printMapValue()
 
-        println "Scraping Final Data : " + aliasMap.size()
         println "Total Entities ${entityNameList.size()}"
         println "Total Allentity ${allEntity.size()}"
         println "Entity With a.k.a : ${countWithAKA}"
@@ -72,13 +68,13 @@ class BoiSecurities {
 
             // -----Getting Name Only----- //
             if (!entity.contains("a.k.a")) {
-
+                entity = sanitizeEntityWithoutAKA(entity)
                 def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
                 if (entityMatcher) {
 
                     entityName = entityMatcher.group()
                     entityAddress = sanitizeAddress(entity, entityName)
-                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : No Alias!======= EntityAddress : ${entityAddress}"
+                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : No Alias!======= EntityAddress : ${entityAddress}"
 
 
                 } else {
@@ -88,18 +84,21 @@ class BoiSecurities {
 
                 // -----Getting Name and Alias ----- //
                 //println entity
+                entity = sanitizeEntityWithAKA(entity)
                 def entityMatcher = entity =~ /(?m)^.+?(?=(?:\s*?<br>\s*?<br>))/
                 if (entityMatcher) {
                     countWithAKA++
                     entityName = entityMatcher.group()
                     //println entityName
-                    entityAddress = sanitizeAddress(entity, entityName)
+                    entityAddress = sanitizeAddressWithAKA(entity, entityName)
                     (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
 
                     println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
                 } else {
-                    //println "withount <br> : $entity"
+//                    if (entity.contains("aliases") && !entity.contains("<br> <br>") && entity.contains("<br>"))
+//                    //.+<br>.+?\.
+//                        println "${i++} |${entity}"
                 }
             }
 
@@ -107,15 +106,44 @@ class BoiSecurities {
         println "count : ${count}"
     }
 
-    def printMapValue() {
-        //aliasMap.entrySet().each {entry-> println entry.key+"-------"+entry.value}
-        //addressMap.entrySet().each {entry-> println entry.key+"--------"+entry.value}
-//
-        for (i in entityNameList) {
-            //println i
-        }
+    def sanitizeEntityWithoutAKA(def entity) {
+        entity = entity.toString().replaceAll(/(?i)(Co\.,?|Company,?)(?:\s?Ltd\.|Limited)/, "Co. Ltd.,")
+        entity = entity.toString().replaceAll(/&amp;/, "&")
+        entity = entity.toString().replaceAll(/China Aerodynamics Research and Development Center \(CARDC\)\./, '$0,')
+        entity = entity.toString().replaceAll(/Ali Mehdipour Omrani\./, '$0,')
+        entity = entity.toString().replaceAll(/Aref Bali Lashak\./, '$0,')
+        entity = entity.toString().replaceAll(/Kamran Daneshjou\./, '$0,')
+        entity = entity.toString().replaceAll(/Mehdi Teranchi\./, '$0,')
+        entity = entity.toString().replaceAll(/Sayyed Mohammad Mehdi Hadavi./, '$0,')
+        entity = entity.toString().replaceAll(/Allied Trading Co/, '$0,')
+        entity = entity.toString().replaceAll(/Prime International/, '$0,')
+        entity = entity.toString().replaceAll(/Unique Technical Promoters/, '$0,')
+        entity = entity.toString().replaceAll(/Juba Petrotech Technical Services Ltd\./, '$0,')
+        entity = entity.toString().replaceAll(/Safinat Group\./, "Safinat Group,")
+        entity = entity.toString().replaceAll(/Brian Douglas Woodford \(See alternate address under Singapore\)/, '$0,')
+
+        return entity
     }
 
+    def sanitizeEntityWithAKA(def entity) {
+        entity = entity.toString().replaceAll(/&amp;/, "&")
+        entity = entity.toString().replaceAll(/Magtech, a\.k\.a., the following one alias: <br> - M\.A\.G\. Tech,/, '$0 <br> <br>')
+        entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
+        entity = entity.toString().replaceAll(/one alias: <br> - Mujahid Ali Mahmood Ali/, '$0.')
+
+        if (entity.contains("aliases") && !entity.contains("alias:") && !entity.contains("<br> <br>") && entity.contains("<br>")) {
+            entity = entity.toString().replaceAll(/(?i).+<br>.+?(?:\.\s|,\s)/, '$0<br> <br>')
+            println "${i++} | $entity"
+            return entity
+        }
+
+        if (entity.contains("one alias") && !entity.contains("aliases") && !entity.contains("<br> <br>")) {
+            entity = entity.toString().replaceAll(/(?i)one alias:?.+?(?:Co\.,?\s?Ltd)?[\.,]/, '$0 <br> <br>')
+            //println "${i++} | $entity"
+            return entity
+        }
+        return entity
+    }
 
     def sanitizeAddress(def entity, def entityName) {
         def tempAddress = entity.toString().replace(entityName, "")
@@ -123,16 +151,21 @@ class BoiSecurities {
         //println tempAddress
         tempAddress = tempAddress.replaceAll("<br>|<em>|</em>", "").trim()
 
-        tempMatcher = tempAddress =~ /(?<=[,\.]\s).{3,}/
+        tempMatcher = tempAddress =~ /(?<=[,]\s).{3,}/
         if (tempMatcher) {
             tempAddress = tempMatcher.group()
-            return tempAddress
+            return tempAddress.trim()
         } else {
             return tempAddress = "No Address!"
         }
+        return tempAddress.trim()
+    }
 
-        return tempAddress
 
+    def sanitizeAddressWithAKA(def entity, def entityName) {
+        def tempAddress = entity.toString().replace(entityName, "")
+        tempAddress = tempAddress.replaceAll("<br>|<em>|</em>", "")
+        return tempAddress.trim()
     }
 
     def sanitizeNameAndAlias(def nameAndAlias) {
@@ -142,12 +175,8 @@ class BoiSecurities {
         if (tempMatcher) {
             tempAlias = nameAndAlias.replace(tempMatcher.group(), "")
         }
-
         tempAlias.trim()
         tempAlias = tempAlias.replaceAll(/<br>|<em>and<\/em>"/, "")
-        tempAlias = tempAlias.replaceAll(/&amp;/, "&")
-
-
         return tempAlias
     }
 
@@ -156,10 +185,8 @@ class BoiSecurities {
         def tempMatcher;
         def aliasList = []
 
-
         nameAndAlias = sanitizeNameAndAliasEntity(nameAndAlias)
         //println " ${count++} | $nameAndAlias"
-
 
         //def nameList = nameAndAlias.toString().split(/(?i)a\.k\.a.+?(?:Alias|Aliases):/).collect { it }
         def nameList = nameAndAlias.toString().split(/(?i)a\.k\.a.+?(?=<br>)/).collect { it }
@@ -176,7 +203,6 @@ class BoiSecurities {
                 println "Null Value : $nameList"
             }
         }
-
         //println "Name : ${name} ======== AliasList : $aliasList"
         aliasList = sanitizeAliasList(aliasList)
 
@@ -196,8 +222,8 @@ class BoiSecurities {
     }
 
     def sanitizeNameAndAliasEntity(def nameAndAlias) {
-        def tempNameAndAlias = nameAndAlias.toString()
 
+        def tempNameAndAlias = nameAndAlias.toString()
         tempNameAndAlias = tempNameAndAlias.replaceAll(/Lukoil, OAO <br>/, "Lukoil, OAO")
 
         if (!tempNameAndAlias.contains("alias") && !tempNameAndAlias.contains("<br>")) {
@@ -205,11 +231,9 @@ class BoiSecurities {
             //println "inside: $tempNameAndAlias"
             return tempNameAndAlias
         }
-
         if (!tempNameAndAlias.contains("<br>")) {
             return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:alias|alises):/, "<br>")
         }
-
         return tempNameAndAlias
     }
 
@@ -217,7 +241,6 @@ class BoiSecurities {
         name = name.replaceAll(/,\s*$/, "").trim()
         //println name
         return name
-
     }
 
 
