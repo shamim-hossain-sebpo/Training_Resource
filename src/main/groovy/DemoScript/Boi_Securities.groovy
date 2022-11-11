@@ -96,9 +96,8 @@ class BoiSecurities {
                     println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
                 } else {
-//                    if (entity.contains("aliases") && !entity.contains("<br> <br>") && entity.contains("<br>"))
-//                    //.+<br>.+?\.
-//                        println "${i++} |${entity}"
+//                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
+//                        println "${i++}| $entity"
                 }
             }
 
@@ -130,16 +129,33 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/Magtech, a\.k\.a., the following one alias: <br> - M\.A\.G\. Tech,/, '$0 <br> <br>')
         entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
         entity = entity.toString().replaceAll(/one alias: <br> - Mujahid Ali Mahmood Ali/, '$0.')
+        entity = entity.toString().replaceAll(/Institute of Physics Named After P.N. Lebedev of the Russian Academy of Sciences, a.k.a., the following four aliases: <br> - Lebedev Physical Institute; <br> - LPI RAS; <br> - Lebedev Physical Institute; <em>and<\/em> <br> - FIAN/, '$0<br> <br> 53 Leninsky Prospekt, Moscow, 119991, Russia.')
+        entity = entity.toString().replaceAll(/Institut Problem Peredachi Informatsii RAN./, '$0<br> <br> No Address!.')
 
         if (entity.contains("aliases") && !entity.contains("alias:") && !entity.contains("<br> <br>") && entity.contains("<br>")) {
             entity = entity.toString().replaceAll(/(?i).+<br>.+?(?:\.\s|,\s)/, '$0<br> <br>')
-            println "${i++} | $entity"
+            // println "${i++} | $entity"
             return entity
         }
 
         if (entity.contains("one alias") && !entity.contains("aliases") && !entity.contains("<br> <br>")) {
             entity = entity.toString().replaceAll(/(?i)one alias:?.+?(?:Co\.,?\s?Ltd)?[\.,]/, '$0 <br> <br>')
             //println "${i++} | $entity"
+            return entity
+        }
+
+        if (entity.contains("two aliases") && !entity.contains("<br>")) {
+            entity = entity.toString().replaceAll(/(?i)two aliases:?.+?(?:Co\.,?\s?Ltd)?[\.,]/, '$0 <br> <br>')
+            //println "${i++} | $entity"
+            return entity
+        }
+
+        if (entity.contains("a.k.a") && !entity.contains("<br>")) {
+            entity = entity.toString().replaceAll(/(?i)(\(a\.k\.a.?.+?(?:\)\.|\),))/, '$0<br> <br>')
+
+            if(entity.contains("<br> <br>"))
+            println "${i++} |${entity}"
+            //println entity
             return entity
         }
         return entity
@@ -232,7 +248,7 @@ class BoiSecurities {
             return tempNameAndAlias
         }
         if (!tempNameAndAlias.contains("<br>")) {
-            return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:alias|alises):/, "<br>")
+            return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:alias|aliases):/, "<br>")
         }
         return tempNameAndAlias
     }
