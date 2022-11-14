@@ -93,11 +93,11 @@ class BoiSecurities {
                     entityAddress = sanitizeAddressWithAKA(entity, entityName)
                     (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
 
-                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
+                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
                 } else {
 //                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
-//                        println "${i++}| $entity"
+                       // println "${i++}| $entity"
                 }
             }
 
@@ -132,6 +132,17 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/Institute of Physics Named After P.N. Lebedev of the Russian Academy of Sciences, a.k.a., the following four aliases: <br> - Lebedev Physical Institute; <br> - LPI RAS; <br> - Lebedev Physical Institute; <em>and<\/em> <br> - FIAN/, '$0<br> <br> 53 Leninsky Prospekt, Moscow, 119991, Russia.')
         entity = entity.toString().replaceAll(/Institut Problem Peredachi Informatsii RAN./, '$0<br> <br> No Address!.')
 
+        //------- Multiple alias Sanitize Entity -----------
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?UM\sA.+?,)(.+?r,)/, '$1<br>$2<br>$3 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?Hassan.+?Co\.),(.+?Electronics),(.+?Street),/, '$1<br>$2<br>$3<br>$4 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(ISSAT\)),(.+?\(ISAT\)),/, '$1<br>$2<br>$3 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(IED\)),(.+?\(EID\)),(.+?\(ETINDE\))/,'$1<br>$2<br>$3<br>$4 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(SSRC\)-NSCL),(.+?Centre),/, '$1<br>$2<br>$3 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+Scientific.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+\(SRC\),)/, '$1<br>$2<br>$3<br>$4<br>$5<br>$6<br>$7<br>$8 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?,?)(.+?Gill),(.+?dian),/, '$1<br>$2<br>$3 <br> <br>')
+
+
+
         if (entity.contains("aliases") && !entity.contains("alias:") && !entity.contains("<br> <br>") && entity.contains("<br>")) {
             entity = entity.toString().replaceAll(/(?i).+<br>.+?(?:\.\s|,\s)/, '$0<br> <br>')
             // println "${i++} | $entity"
@@ -153,9 +164,12 @@ class BoiSecurities {
         if (entity.contains("a.k.a") && !entity.contains("<br>")) {
             entity = entity.toString().replaceAll(/(?i)(\(a\.k\.a.?.+?(?:\)\.|\),))/, '$0<br> <br>')
 
-            if(entity.contains("<br> <br>"))
-            println "${i++} |${entity}"
-            //println entity
+            if(entity.contains("<br> <br>")){
+                //println "${i++} |${entity}"
+            }else{
+                println "${i++} |${entity}"
+            }
+
             return entity
         }
         return entity
