@@ -19,6 +19,7 @@ class BoiSecurities {
     final def moduleFactory = ModuleLoader.getFactory("7dd0501f220ad1d1465967a4e02f6ff17d7d9ff9")
     //a2d905c86b1424c8656d0432d41029977e4f81cd
     final def ocrReader
+    final addressParser
     final MAIN_URL = "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-744/appendix-Supplement%20No.%204%20to%20Part%20744"
     def allEntity = []
     def entityNameList = []
@@ -31,6 +32,7 @@ class BoiSecurities {
     BoiSecurities(context) {
         this.context = context
         ocrReader = moduleFactory.getOcrReader(context)
+        addressParser = moduleFactory.getGenericAddressParser(context)
     }
 
     def initParsing() {
@@ -63,19 +65,21 @@ class BoiSecurities {
             //println entity
             allEntity.push(entity)
 
-            entityAlias.clear()
 
 
             // -----Getting Name Only----- //
             if (!entity.contains("a.k.a")) {
+                aliasList.clear()
                 entity = sanitizeEntityWithoutAKA(entity)
                 def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
                 if (entityMatcher) {
 
                     entityName = entityMatcher.group()
                     entityAddress = sanitizeAddress(entity, entityName)
-                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : No Alias!======= EntityAddress : ${entityAddress}"
+                    aliasList << "No Alias !"
+                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
 
+                    createEntity(entityName, aliasList,entityAddress)
 
                 } else {
                     //println entity
@@ -93,7 +97,9 @@ class BoiSecurities {
                     entityAddress = sanitizeAddressWithAKA(entity, entityName)
                     (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
 
-                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
+                    createEntity(entityName,aliasList,entityAddress)
+
+                  println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
                 } else {
 //                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
@@ -162,13 +168,15 @@ class BoiSecurities {
         }
 
         if (entity.contains("a.k.a") && !entity.contains("<br>")) {
-            entity = entity.toString().replaceAll(/(?i)(\(a\.k\.a.?.+?(?:\)\.|\),))/, '$0<br> <br>')
+            //entity = entity.toString().replaceAll(/(?i)(\(a\.k\.a.?.+?(?:\)\.|\),))/, '$0<br> <br>')
+            entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?.+?),/, '$1<br> <br>')
 
             if(entity.contains("<br> <br>")){
-                //println "${i++} |${entity}"
+//                println "${i++} |${entity}"
             }else{
-                println "${i++} |${entity}"
+                //println "${i++} |${entity}"
             }
+           // println "${i++} |${entity}"
 
             return entity
         }
@@ -271,6 +279,24 @@ class BoiSecurities {
         name = name.replaceAll(/,\s*$/, "").trim()
         //println name
         return name
+    }
+
+
+    //------------- Create Entity ----------------- //
+    def createEntity(def name, def aliasList, def address){
+
+        def entity;
+        entity = context.findEntity([name:name])
+
+        if(entity == null){
+            entity = context.getSession().newEntity()
+            entity.setName(name)
+        }
+
+        aliasList.each{
+            entity.addAlias(it)
+        }
+
     }
 
 
