@@ -2,6 +2,7 @@ package shamim.io
 
 import com.rdc.importer.scrapian.ScrapianContext
 import com.rdc.importer.scrapian.util.ModuleLoader
+import com.rdc.scrape.ScrapeAddress
 
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -77,7 +78,9 @@ class BoiSecurities {
                     entityName = entityMatcher.group()
                     entityAddress = sanitizeAddress(entity, entityName)
                     aliasList << "No Alias !"
-                    println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
+                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
+
+                   // println "${i++}| Entity Address : $entityAddress"
 
                     createEntity(entityName, aliasList,entityAddress)
 
@@ -98,8 +101,10 @@ class BoiSecurities {
                     (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
 
                     createEntity(entityName,aliasList,entityAddress)
+                    //println "${i++}| Entity Address : $entityAddress"
 
-                  println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
+
+                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
 
                 } else {
 //                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
@@ -291,6 +296,16 @@ class BoiSecurities {
         if(entity == null){
             entity = context.getSession().newEntity()
             entity.setName(name)
+            entity.setType(name)
+
+            address.split("; and").each { ad ->
+                ad = sanitizeAddresss(ad)
+                def addrMap = addressParser.parseAddress([text: ad, force_country: true])
+                ScrapeAddress scrapeAddress = addressParser.buildAddress(addrMap)
+                if (scrapeAddress) {
+                    entity.addAddress(scrapeAddress)
+                }
+            }
         }
 
         aliasList.each{
@@ -298,6 +313,13 @@ class BoiSecurities {
         }
 
     }
+
+    String sanitizeAddresss(String rawFormat) {
+        //format Address to : lane address,postal code, city, province, country
+        return rawFormat.replaceAll(/(?ism)\s+/, " ")
+    }
+
+
 
 
 //------------------------------Misc utils part---------------------//
@@ -346,9 +368,6 @@ class BoiSecurities {
         return context.invokeBinary(dataMap)
     }
 
-    //(?=.*a\.k\.a).*?(?ism)-.+?(?=[\.,;]) alias regex.
 
-    //(?m)(?=.*(?:a\.k\.a)).*?(?:alias|aliases):\s*(-.+?(?=[\.,;])).*?(-.+?(?=[\.,;])) alias regex.
-    // edited
 }
 
