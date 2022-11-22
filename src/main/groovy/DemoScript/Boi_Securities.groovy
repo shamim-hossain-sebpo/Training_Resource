@@ -34,6 +34,14 @@ class BoiSecurities {
         this.context = context
         ocrReader = moduleFactory.getOcrReader(context)
         addressParser = moduleFactory.getGenericAddressParser(context)
+
+        addressParser.updateCountries([ocl: ["Germany"],
+        ])
+
+        addressParser.updateCities([DE: ["Wermelskirchen"]
+
+        ])
+        addressParser.reloadData()
     }
 
     def initParsing() {
@@ -66,10 +74,10 @@ class BoiSecurities {
             //println entity
             allEntity.push(entity)
 
-
+            entity = mainEntitySanitize(entity)
 
             // -----Getting Name Only----- //
-            if (!entity.contains("a.k.a")) {
+            if (!entity.contains("a.k.a") && !entity.contains("alias")) {
                 aliasList.clear()
                 entity = sanitizeEntityWithoutAKA(entity)
                 def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
@@ -80,9 +88,9 @@ class BoiSecurities {
                     aliasList << "No Alias !"
                     //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
 
-                   // println "${i++}| Entity Address : $entityAddress"
+                    // println "${i++}| Entity Address : $entityAddress"
 
-                    createEntity(entityName, aliasList,entityAddress)
+                    createEntity(entityName, aliasList, entityAddress)
 
                 } else {
                     //println entity
@@ -108,7 +116,7 @@ class BoiSecurities {
 
                 } else {
 //                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
-                       // println "${i++}| $entity"
+                    // println "${i++}| $entity"
                 }
             }
 
@@ -116,26 +124,35 @@ class BoiSecurities {
         println "count : ${count}"
     }
 
+    def mainEntitySanitize(def mainEntity){
+        mainEntity = mainEntity.toString().replaceAll(/(U\.A\.E)/,'United Arab Emirates')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(\(See\s(?:alternate|also).+?\))/,"")
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(.+?Ministry.+?Republic.+?Belarus),(.+?Wherever located)(.+)/,'$1($2),Belarus')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(Ministry.+?Federation),(.+?Wherever located)(.+)/,'$1($2),Russia')
+        return mainEntity
+    }
+
     def sanitizeEntityWithoutAKA(def entity) {
         entity = entity.toString().replaceAll(/(?i)(Co\.,?|Company,?)(?:\s?Ltd\.|Limited)/, "Co. Ltd.,")
         entity = entity.toString().replaceAll(/&amp;/, "&")
         entity = entity.toString().replaceAll(/China Aerodynamics Research and Development Center \(CARDC\)\./, '$0,')
-        entity = entity.toString().replaceAll(/Ali Mehdipour Omrani\./, '$0,')
-        entity = entity.toString().replaceAll(/Aref Bali Lashak\./, '$0,')
-        entity = entity.toString().replaceAll(/Kamran Daneshjou\./, '$0,')
-        entity = entity.toString().replaceAll(/Mehdi Teranchi\./, '$0,')
-        entity = entity.toString().replaceAll(/Sayyed Mohammad Mehdi Hadavi./, '$0,')
-        entity = entity.toString().replaceAll(/Allied Trading Co/, '$0,')
-        entity = entity.toString().replaceAll(/Prime International/, '$0,')
-        entity = entity.toString().replaceAll(/Unique Technical Promoters/, '$0,')
+        entity = entity.toString().replaceAll(/Ali Mehdipour Omrani\./, '$0, Iran')
+        entity = entity.toString().replaceAll(/Aref Bali Lashak\./, '$0, Iran')
+        entity = entity.toString().replaceAll(/Kamran Daneshjou\./, '$0, Iran')
+        entity = entity.toString().replaceAll(/Mehdi Teranchi\./, '$0, Iran')
+        entity = entity.toString().replaceAll(/Sayyed Mohammad Mehdi Hadavi./, '$0, Iran')
+        entity = entity.toString().replaceAll(/^\s?Allied Trading Co\s?$/, '$0, Pakistan')
+        entity = entity.toString().replaceAll(/^Prime International$/, '$0, Pakistan')
+        entity = entity.toString().replaceAll(/^Unique Technical Promoters$/, '$0, Pakistan')
         entity = entity.toString().replaceAll(/Juba Petrotech Technical Services Ltd\./, '$0,')
         entity = entity.toString().replaceAll(/Safinat Group\./, "Safinat Group,")
-        entity = entity.toString().replaceAll(/Brian Douglas Woodford \(See alternate address under Singapore\)/, '$0,')
+        entity = entity.toString().replaceAll(/(?i)^(Brian Douglas Woodford)/, '$1,United Kingdom')
 
         return entity
     }
 
     def sanitizeEntityWithAKA(def entity) {
+        //println entity
         entity = entity.toString().replaceAll(/&amp;/, "&")
         entity = entity.toString().replaceAll(/Magtech, a\.k\.a., the following one alias: <br> - M\.A\.G\. Tech,/, '$0 <br> <br>')
         entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
@@ -147,10 +164,13 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?UM\sA.+?,)(.+?r,)/, '$1<br>$2<br>$3 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?Hassan.+?Co\.),(.+?Electronics),(.+?Street),/, '$1<br>$2<br>$3<br>$4 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(ISSAT\)),(.+?\(ISAT\)),/, '$1<br>$2<br>$3 <br> <br>')
-        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(IED\)),(.+?\(EID\)),(.+?\(ETINDE\))/,'$1<br>$2<br>$3<br>$4 <br> <br>')
+        entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(IED\)),(.+?\(EID\)),(.+?\(ETINDE\))/, '$1<br>$2<br>$3<br>$4 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?\(SSRC\)-NSCL),(.+?Centre),/, '$1<br>$2<br>$3 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+Scientific.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+\(SRC\),)/, '$1<br>$2<br>$3<br>$4<br>$5<br>$6<br>$7<br>$8 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?,?)(.+?Gill),(.+?dian),/, '$1<br>$2<br>$3 <br> <br>')
+
+        entity = entity.toString().replaceAll(/(?i)(54th.+?Institute.+?<br>\s-\sShijiazhuang)(\sCommunication.+?Institute)/, '$1,$2,China.')
+
 
 
 
@@ -176,12 +196,12 @@ class BoiSecurities {
             //entity = entity.toString().replaceAll(/(?i)(\(a\.k\.a.?.+?(?:\)\.|\),))/, '$0<br> <br>')
             entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?.+?),/, '$1<br> <br>')
 
-            if(entity.contains("<br> <br>")){
+            if (entity.contains("<br> <br>")) {
 //                println "${i++} |${entity}"
-            }else{
+            } else {
                 //println "${i++} |${entity}"
             }
-           // println "${i++} |${entity}"
+            // println "${i++} |${entity}"
 
             return entity
         }
@@ -189,25 +209,56 @@ class BoiSecurities {
     }
 
     def sanitizeAddress(def entity, def entityName) {
+        //println entity
         def tempAddress = entity.toString().replace(entityName, "")
         def tempMatcher;
         //println tempAddress
-        tempAddress = tempAddress.replaceAll("<br>|<em>|</em>", "").trim()
 
-        tempMatcher = tempAddress =~ /(?<=[,]\s).{3,}/
+        tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
+        tempAddress = tempAddress.replaceAll(/(?i)(Province 211100).+(Jiangsu 211100).+(Shanghai 201201).+(zone, Nanjing)/, '$1,China $2,China $3,China $4,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Development Zone)(;\sand.+Hunan Province)(;\sand.+410221)/, '$1,China $2,China $3,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Quanzhou, Fujian)(.+District, Shanghai)(;\sand.+District, Chengdu)(;\sand.+District, Wuhan)(;\sand.+District, Luoyang)(;\sand.+District, Hefei)(;\sand.+Zone)/, '$1,China $2,China $3,China $4,China $5,China $6,China $7,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Shaanxi)(;\sand.+Shenzhen City)(;\sand.+Zhongshan City)(;\sand.+Zhejiang Province)/, '$1,China $2,China $3,China $4, China')
+        tempAddress = tempAddress.replaceAll(/(?i)(19,.+?Savitaipale)/, '$1,Finland')
+        tempAddress = tempAddress.replaceAll(/(?i)(P\.O\..+42908)\sDE(;\sand.+42908)\sDE/, '$1,Germany $2,Germany')
+        tempAddress = tempAddress.replaceAll(/(?i)(22,.+Moscow\s127055Ru)/, '$1,Russia')
+        tempAddress = tempAddress.replaceAll(/(?i)(in.+?Okhotsk)/, '$1,Russia')
+        tempAddress = tempAddress.replaceAll(/(?i)(1A.+?Zhubei.+?30274)/, '$1,Taiwan')
+
+        tempAddress = tempAddress.replaceAll(/(?i)(shops.+?Emirates\.;\s)(P\..+?Emirates\.)/, 'and$1and$2;')
+
+
+
+        tempMatcher = tempAddress =~ /^,,?\s?(.+)/
         if (tempMatcher) {
-            tempAddress = tempMatcher.group()
-            return tempAddress.trim()
+            tempAddress = tempMatcher.group(1)
         } else {
-            return tempAddress = "No Address!"
+            tempAddress = "No Address!"
         }
+        //println tempAddress
         return tempAddress.trim()
     }
 
 
     def sanitizeAddressWithAKA(def entity, def entityName) {
+        //println entity
         def tempAddress = entity.toString().replace(entityName, "")
-        tempAddress = tempAddress.replaceAll("<br>|<em>|</em>", "")
+        tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
+
+        //-------- Mising Country ----------//
+        tempAddress = tempAddress.replaceAll(/(?i)(Xueyan.+?Beijing.+?Ning\sBuilding,.+?)\./, '$1,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(No\..+?Changji.+?Hills\))(;\sand.+?Oasis.+?)\./, '$1,China$2,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(Building\s9.+?Yuejin.+?Free)(;\sand.+?Hexi.+?)\./, '$1,China$2,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(198\sAicheng.+?Hangzhou)(;\sand.+?Macheng.+?Hangzhou)(;\sand.+?Wenyi.+?District)(;\sand.+?Qingha.+?Hangzhou)/, '$1,China$2,China$3,China$4,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(64\sMianshan.+?11\sJindu.+?8\sHuayuan.+?Beijing)(;\sand.+?Beijing)/, '$1,China$2,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Xicheng.+?Shaanxi\sProvince)/, '$1,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Nanhu.+?Wuhan\sC.+?Province)/, '$1,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Building.+?Hangzhou\sC.+?Province)(;\sand.+?209\sGold.+?Zhejiang)/, '$1,China$2,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(.+?Anhui\sProvince)\./, '$1,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(88\sHengtong.+?Wujiang.+?Jiangsu\sProvince)/, '$1,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(No\.\s88.+?Yaoguan.+?Changzhou\sCity)./, '$1,China')
+
+        println tempAddress
         return tempAddress.trim()
     }
 
@@ -219,7 +270,7 @@ class BoiSecurities {
             tempAlias = nameAndAlias.replace(tempMatcher.group(), "")
         }
         tempAlias.trim()
-        tempAlias = tempAlias.replaceAll(/<br>|<em>and<\/em>"/, "")
+        tempAlias = tempAlias.replaceAll(/<br>|<em>|<\/em>"/, "")
         return tempAlias
     }
 
@@ -277,6 +328,11 @@ class BoiSecurities {
         if (!tempNameAndAlias.contains("<br>")) {
             return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(?:alias|aliases):/, "<br>")
         }
+
+        if(tempNameAndAlias.contains("alias") && !tempNameAndAlias.contains("a.k.a")){
+            return tempNameAndAlias = tempNameAndAlias.replaceAll(/(?i)(.+?,)(\s.+?)((?:alias|aliases))/, '$1a.k.a $3')
+           // println "New Entity : $tempNameAndAlias"
+        }
         return tempNameAndAlias
     }
 
@@ -288,12 +344,13 @@ class BoiSecurities {
 
 
     //------------- Create Entity ----------------- //
-    def createEntity(def name, def aliasList, def address){
+    def createEntity(def name, def aliasList, def address) {
 
         def entity;
-        entity = context.findEntity([name:name])
+        entity = context.findEntity([name: name])
 
-        if(entity == null){
+
+        if (entity == null) {
             entity = context.getSession().newEntity()
             entity.setName(name)
             entity.setType(name)
@@ -308,7 +365,7 @@ class BoiSecurities {
             }
         }
 
-        aliasList.each{
+        aliasList.each {
             entity.addAlias(it)
         }
 
@@ -318,8 +375,6 @@ class BoiSecurities {
         //format Address to : lane address,postal code, city, province, country
         return rawFormat.replaceAll(/(?ism)\s+/, " ")
     }
-
-
 
 
 //------------------------------Misc utils part---------------------//
