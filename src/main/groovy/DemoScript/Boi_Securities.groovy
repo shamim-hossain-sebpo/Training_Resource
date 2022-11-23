@@ -21,6 +21,7 @@ class BoiSecurities {
     //a2d905c86b1424c8656d0432d41029977e4f81cd
     final def ocrReader
     final addressParser
+    final entityType
     final MAIN_URL = "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-744/appendix-Supplement%20No.%204%20to%20Part%20744"
     def allEntity = []
     def entityNameList = []
@@ -34,6 +35,7 @@ class BoiSecurities {
         this.context = context
         ocrReader = moduleFactory.getOcrReader(context)
         addressParser = moduleFactory.getGenericAddressParser(context)
+        entityType = moduleFactory.getEntityTypeDetection(context)
 
         addressParser.updateCountries([ocl: ["Germany"],
         ])
@@ -129,6 +131,7 @@ class BoiSecurities {
         mainEntity = mainEntity.toString().replaceAll(/(?i)(\(See\s(?:alternate|also).+?\))/,"")
         mainEntity = mainEntity.toString().replaceAll(/(?i)(.+?Ministry.+?Republic.+?Belarus),(.+?Wherever located)(.+)/,'$1($2),Belarus')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(Ministry.+?Federation),(.+?Wherever located)(.+)/,'$1($2),Russia')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(Slovakia)/,'Slovak Republic')
         return mainEntity
     }
 
@@ -158,7 +161,7 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
         entity = entity.toString().replaceAll(/one alias: <br> - Mujahid Ali Mahmood Ali/, '$0.')
         entity = entity.toString().replaceAll(/Institute of Physics Named After P.N. Lebedev of the Russian Academy of Sciences, a.k.a., the following four aliases: <br> - Lebedev Physical Institute; <br> - LPI RAS; <br> - Lebedev Physical Institute; <em>and<\/em> <br> - FIAN/, '$0<br> <br> 53 Leninsky Prospekt, Moscow, 119991, Russia.')
-        entity = entity.toString().replaceAll(/Institut Problem Peredachi Informatsii RAN./, '$0<br> <br> No Address!.')
+        entity = entity.toString().replaceAll(/Institut Problem Peredachi Informatsii RAN./, '$0<br> <br> Russia.')
 
         //------- Multiple alias Sanitize Entity -----------
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+?UM\sA.+?,)(.+?r,)/, '$1<br>$2<br>$3 <br> <br>')
@@ -242,10 +245,13 @@ class BoiSecurities {
 
     def sanitizeAddressWithAKA(def entity, def entityName) {
         //println entity
+
+
         def tempAddress = entity.toString().replace(entityName, "")
         tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
 
-        //-------- Mising Country ----------//
+
+        //-------- Missing Country (Mostly China)----------//
         tempAddress = tempAddress.replaceAll(/(?i)(Xueyan.+?Beijing.+?Ning\sBuilding,.+?)\./, '$1,China.')
         tempAddress = tempAddress.replaceAll(/(?i)(No\..+?Changji.+?Hills\))(;\sand.+?Oasis.+?)\./, '$1,China$2,China.')
         tempAddress = tempAddress.replaceAll(/(?i)(Building\s9.+?Yuejin.+?Free)(;\sand.+?Hexi.+?)\./, '$1,China$2,China.')
@@ -256,7 +262,27 @@ class BoiSecurities {
         tempAddress = tempAddress.replaceAll(/(?i)(Building.+?Hangzhou\sC.+?Province)(;\sand.+?209\sGold.+?Zhejiang)/, '$1,China$2,China')
         tempAddress = tempAddress.replaceAll(/(?i)(.+?Anhui\sProvince)\./, '$1,China.')
         tempAddress = tempAddress.replaceAll(/(?i)(88\sHengtong.+?Wujiang.+?Jiangsu\sProvince)/, '$1,China')
-        tempAddress = tempAddress.replaceAll(/(?i)(No\.\s88.+?Yaoguan.+?Changzhou\sCity)./, '$1,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(No\.\s88.+?Yaoguan.+?Changzhou\sCity)\./, '$1,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(No\.\s18\sWest.+?Security,\sXicheng.+?uke\sMuni.+?)\./, '$1,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(6\sDongsheng.+?A8-4.+?214437)\./, '$1,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(Room\s602,.+?\.158.+?Park)\./, '$1,China.')
+        tempAddress = tempAddress.replaceAll(/(?i)(GF\sSeapower.+?Causeway.+?489\sHennessey.+?kowloon)\./, '$1,Hong Kong.')
+        tempAddress = tempAddress.replaceAll(/(?i)(Shihezi\sDev.+?Park)(;\sand.+)/, '$1,China$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(Wucaiwan.+?Changji\sPrefecture.+?ity\))(;\sand.+)/, '$1,China$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(East.+?Quanbei\sI.+?Prefecture.+?ity\))(;\sand.+)/, '$1,China$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(Xinjiang\sur.+?No\.258\sGaox.+?891)\./, '$1,China.')
+
+        tempAddress = tempAddress.replaceAll(/(?i)(No\.\s40-.+?Iran;\sand.+)\./, '$1,Iran.')
+        tempAddress = tempAddress.replaceAll(/(?i)(?:\(Add.+?)(P\.O\..+?Russia)\)(;\sand.+?entities.+?Snez.+?)\./, '$1$2,Russia.')
+        tempAddress = tempAddress.replaceAll(/(?i)(?:\(Add.+?)(37\sMira.+?\d{6}\sRussia)\)(;\sand.+?entities.+?Kremlev.+?)\./, '$1$2,Russia.')
+        tempAddress = tempAddress.replaceAll(/(?i)(2\sFatkulina.+?Tartarstan.+?21)\./, '$1,Russia.')
+        tempAddress = tempAddress.replaceAll(/(?i)(9A\s2nd.+pol,\sst.+037)\./, '$1,Russia.')
+        tempAddress = tempAddress.replaceAll(/(?i)(40\sMoskovsky.+?lic,\s\d{6})(;\sand\s7.+)/, '$1,Russia$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(25\sBol.+?kaya\sst.+\d{6})(;\sand.+)/, '$1,Russia$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(33,\sGa.+?Gagarin.+?ul\..+?obl\s\d{6})\./, '$1,Russia')
+        tempAddress = tempAddress.replaceAll(/(?i)(lit\sA.+?ulitsa,.+?\d{6})\./, '$1,Russia')
+        tempAddress = tempAddress.replaceAll(/(?i)(4\sPokhodnyy.+?;\sand\s46.+?\d{6})\./, '$1,Russia')
+        tempAddress = tempAddress.replaceAll(/(?i)(Pr\..+?;\sand\s5.+?\d{6})\./, '$1,Russia')
 
         println tempAddress
         return tempAddress.trim()
@@ -353,7 +379,8 @@ class BoiSecurities {
         if (entity == null) {
             entity = context.getSession().newEntity()
             entity.setName(name)
-            entity.setType(name)
+            def type = entityType.detectEntityType(name)
+            entity.setType(type)
 
             address.split("; and").each { ad ->
                 ad = sanitizeAddresss(ad)
