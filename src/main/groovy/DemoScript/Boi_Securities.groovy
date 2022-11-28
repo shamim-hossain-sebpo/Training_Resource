@@ -136,6 +136,7 @@ class BoiSecurities {
     }
 
     def sanitizeEntityWithoutAKA(def entity) {
+        //println println("WithoutAKA:  $entity")
         entity = entity.toString().replaceAll(/(?i)(Co\.,?|Company,?)(?:\s?Ltd\.|Limited)/, "Co. Ltd.,")
         entity = entity.toString().replaceAll(/&amp;/, "&")
         entity = entity.toString().replaceAll(/China Aerodynamics Research and Development Center \(CARDC\)\./, '$0,')
@@ -150,12 +151,14 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/Juba Petrotech Technical Services Ltd\./, '$0,')
         entity = entity.toString().replaceAll(/Safinat Group\./, "Safinat Group,")
         entity = entity.toString().replaceAll(/(?i)^(Brian Douglas Woodford)/, '$1,United Kingdom')
+        entity = entity.toString().replaceAll(/(?i)(Academy of Military Medical Sciences),(\s.+?)(?=,)/, '$1($2)')
 
+        println println("WithoutAKA:  $entity")
         return entity
     }
 
     def sanitizeEntityWithAKA(def entity) {
-        //println entity
+        println entity
         entity = entity.toString().replaceAll(/&amp;/, "&")
         entity = entity.toString().replaceAll(/Magtech, a\.k\.a., the following one alias: <br> - M\.A\.G\. Tech,/, '$0 <br> <br>')
         entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
@@ -175,7 +178,7 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?),(.+Scientific.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+?,)(.+\(SRC\),)/, '$1<br>$2<br>$3<br>$4<br>$5<br>$6<br>$7<br>$8 <br> <br>')
         entity = entity.toString().replaceAll(/(?i)(a\.k\.a.?,?)(.+?Gill),(.+?dian),/, '$1<br>$2<br>$3 <br> <br>')
 
-        entity = entity.toString().replaceAll(/(?i)(54th.+?Institute.+?<br>\s-\sShijiazhuang)(\sCommunication.+?Institute)/, '$1,$2,China.')
+        entity = entity.toString().replaceAll(/(?i)(54th.+?Institute.+?<br>\s-\sShijiazhuang.+?tute)\./, '$1, China.')
 
 
         if (entity.contains("aliases") && !entity.contains("alias:") && !entity.contains("<br> <br>") && entity.contains("<br>")) {
@@ -215,7 +218,7 @@ class BoiSecurities {
         //println tempAddress
 
         tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
-        tempAddress = tempAddress.replaceAll(/(?i)(Province 211100).+(Jiangsu 211100).+(Shanghai 201201).+(zone, Nanjing)/, '$1,China $2,China $3,China $4,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Province 211100)(;\sand.+?188.+?100)(;\sand.+?31.+?1201)(;\sand.+?jun\sAv.+?Nanjing)/, '$1,China $2,China $3,China $4,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Development Zone)(;\sand.+Hunan Province)(;\sand.+410221)/, '$1,China $2,China $3,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Quanzhou, Fujian)(.+District, Shanghai)(;\sand.+District, Chengdu)(;\sand.+District, Wuhan)(;\sand.+District, Luoyang)(;\sand.+District, Hefei)(;\sand.+Zone)/, '$1,China $2,China $3,China $4,China $5,China $6,China $7,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Shaanxi)(;\sand.+Shenzhen City)(;\sand.+Zhongshan City)(;\sand.+Zhejiang Province)/, '$1,China $2,China $3,China $4, China')
@@ -240,13 +243,15 @@ class BoiSecurities {
 
 
     def sanitizeAddressWithAKA(def entity, def entityName) {
-        //println entity
+
 
 
         def tempAddress = entity.toString().replace(entityName, "")
         tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
+        tempAddress = tempAddress.replaceAll(/(?i)(?:Alt)?\s?Address[es]*:?/, "")
 
-        tempAddress = tempAddress.replaceAll(/(?i)Address[es]*:?/, "")
+        //println tempAddress
+
         tempAddress = tempAddress.replaceAll(/(?i)(Luz.+?ment)(.+\\/span>)/, "")
 
 
@@ -283,9 +288,11 @@ class BoiSecurities {
         tempAddress = tempAddress.replaceAll(/(?i)(lit\sA.+?ulitsa,.+?\d{6})\./, '$1,Russia')
         tempAddress = tempAddress.replaceAll(/(?i)(4\sPokhodnyy.+?;\sand\s46.+?\d{6})\./, '$1,Russia')
         tempAddress = tempAddress.replaceAll(/(?i)(Pr\..+?;\sand\s5.+?\d{6})\./, '$1,Russia')
+
         tempAddress = tempAddress.replaceAll(/(?i)(Alt\sAddress:)/, '; and')
         tempAddress = tempAddress.replaceAll(/(?i)(Suite\s801.+?8\sCa.+?Beijing)(;\sand.+?hai\s\d{6})(;\sand.+?Tian.+?\d{6})(;\sand.+?an,\s\d{6})(;\sand.+?gdu,\s\d{6})(;\s)(.+?gdu\s\d{6})(;\sand.+?zhou,\s\d{6})(;\sand.+?hang,\s\d{6})/, '$1,China$2,China$3,China$4,China$5,China$6and$7,China$8,China$9,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Bud\.\s9.+?str\.,\sV.+?433,\s)and(.+)/, '$1$2')
+        tempAddress = tempAddress.replaceAll(/(?i)(Let\..+?ya\,\s5.+?ssia)(.+?burg\s19.+?ia)(.+?ya\sSt.+?ia)/, '$1; and$2; and$3; and')
 
 
         //println tempAddress
@@ -350,7 +357,9 @@ class BoiSecurities {
             i = i.toString().replaceAll(/^.+?(?=\w)/, "")
             i = i.toString().replaceAll(/<em>and<\/em>/, "")
             i = i.toString().replaceAll(/&amp;/, "&")
+            i = i.toString().replaceAll(/(?i)(and\s?$)/, "")
             i = i.toString().replaceAll(/(?s)\s+/, " ")
+
             tempAliasList << i.trim()
         }
         return tempAliasList
