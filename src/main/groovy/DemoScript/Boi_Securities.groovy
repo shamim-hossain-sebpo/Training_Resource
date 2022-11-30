@@ -65,65 +65,75 @@ class BoiSecurities {
         def count = 1;
         def entity = ""
         //def entityMatcher;
-        def entityName;
-        def entityAddress;
-        def aliasList = [];
+
 
         while (entityData.find()) {
             count++
             // --- Getting entity ---- //
             entity = entityData.group(2)
-            //println entity
+            println entity
             allEntity.push(entity)
 
             entity = mainEntitySanitize(entity)
-
-            // -----Getting Name Only----- //
-            if (!entity.contains("a.k.a") && !entity.contains("alias") && !entity.contains("f.k.a")) {
-                aliasList.clear()
-                entity = sanitizeEntityWithoutAKA(entity)
-                def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
-                if (entityMatcher) {
-
-                    entityName = entityMatcher.group()
-                    entityAddress = sanitizeAddress(entity, entityName)
-                    //aliasList << "No Alias !"
-                    createEntity(sanitizeName(entityName), aliasList, entityAddress)
-                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
-
-                    // println "${i++}| Entity Address : $entityAddress"
-
-
-                } else {
-                    //println entity
-                }
+            if (entity.contains("Bhabha Atomic")) {
+                entity.split(/<br>/).each { item -> distributionData(item) }
+            } else if (entity.contains("No. 11 Research") || entity.contains("Corporation 13th Research") || entity.contains("Hebei Envoltek E")|| entity.contains("Micro Electronic Te")) {
+                entity.split(/split/).each { item -> distributionData(item) }
             } else {
-                //if (entity.contains("f.k.a")) println "${i++} | $entity"
-
-                // -----Getting Name and Alias ----- //
-                //println entity
-                entity = sanitizeEntityWithAKA(entity)
-                def entityMatcher = entity =~ /(?m)^.+?(?=(?:\s*?<br>\s*?<br>))/
-                if (entityMatcher) {
-                    countWithAKA++
-                    entityName = entityMatcher.group()
-                    //println entityName
-                    entityAddress = sanitizeAddressWithAKA(entity, entityName)
-                    (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
-                    createEntity(sanitizeName(entityName), aliasList, entityAddress)
-                    //println "${i++}| Entity Address : $entityAddress"
-
-
-                    //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
-
-                } else {
-//                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
-                    println "${i++}| $entity"
-                }
+                distributionData(entity)
             }
 
         }
-        println "count : ${count}"
+    }
+
+    def distributionData(def entity) {
+        def entityName;
+        def entityAddress;
+        def aliasList = [];
+
+        // -----Getting Name Only----- //
+        if (!entity.contains("a.k.a") && !entity.contains("alias") && !entity.contains("f.k.a")) {
+            aliasList.clear()
+            entity = sanitizeEntityWithoutAKA(entity)
+            def entityMatcher = entity =~ /(?m)^.+?(?=[,])/
+            if (entityMatcher) {
+
+                entityName = entityMatcher.group()
+                entityAddress = sanitizeAddress(entity, entityName)
+                //aliasList << "No Alias !"
+                createEntity(sanitizeName(entityName), aliasList, entityAddress)
+                //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList}======= EntityAddress : ${entityAddress}"
+
+                // println "${i++}| Entity Address : $entityAddress"
+
+
+            } else {
+                //println entity
+            }
+        } else {
+            //if (entity.contains("f.k.a")) println "${i++} | $entity"
+
+            // -----Getting Name and Alias ----- //
+            //println entity
+            entity = sanitizeEntityWithAKA(entity)
+            def entityMatcher = entity =~ /(?m)^.+?(?=(?:\s*?<br>\s*?<br>))/
+            if (entityMatcher) {
+                countWithAKA++
+                entityName = entityMatcher.group()
+                //println entityName
+                entityAddress = sanitizeAddressWithAKA(entity, entityName)
+                (entityName, aliasList) = separateNameAndAliasWithAKA(entityName)
+                createEntity(sanitizeName(entityName), aliasList, entityAddress)
+                //println "${i++}| Entity Address : $entityAddress"
+
+
+                //println " ${countwithountAKA++}|EntityName: ${entityName} ======= EntityAlias : ${aliasList} ======= EntityAddress : ${entityAddress}"
+
+            } else {
+//                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
+                println "${i++}| $entity"
+            }
+        }
     }
 
     def mainEntitySanitize(def mainEntity) {
@@ -132,6 +142,19 @@ class BoiSecurities {
         mainEntity = mainEntity.toString().replaceAll(/(?i)(.+?Ministry.+?Republic.+?Belarus),(.+?Wherever located)(.+)/, '$1($2),Belarus')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(Ministry.+?Federation),(.+?Wherever located)(.+)/, '$1($2),Russia')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(Slovakia)/, 'Slovak Republic')
+
+        //--- Multiple Entities Sanitize -----------//
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(The\sf.+?Atomic.+?-)(\sBhabha.+?BARC\))(;\s<b.+?CAR\))(;\s<b.+?ths)(;\s<b.+?tors)(.+)/, '$2,India$3,India$4,India$5,India.')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sEl.+?11\sRese.+?ses,)(?:.+?)(<br>.+?RI\)\.)(\s<br>.+?pany\.)(\s<br>.+?IR\.)(.+)/, '$1 $2$5 $3$5 $4$5')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(<em>Sub.+?ate\s.+?tion<\/em><br>)(?=Envoltek)/, "")
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(<em>Sub.+?ate\s.+?tion<\/em><br>)(?=Micro)/, "")
+
+
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(?:<br><em>Subordinate Institution:?<\/em>)(?:\s<br>)?/, "split")
+
+
+
+
         return mainEntity
     }
 
@@ -153,12 +176,12 @@ class BoiSecurities {
         entity = entity.toString().replaceAll(/(?i)^(Brian Douglas Woodford)/, '$1,United Kingdom')
         entity = entity.toString().replaceAll(/(?i)(Academy of Military Medical Sciences),(\s.+?)(?=,)/, '$1($2)')
 
-        println println("WithoutAKA:  $entity")
+        //println println("WithoutAKA:  $entity")
         return entity
     }
 
     def sanitizeEntityWithAKA(def entity) {
-        println entity
+        //println entity
         entity = entity.toString().replaceAll(/&amp;/, "&")
         entity = entity.toString().replaceAll(/Magtech, a\.k\.a., the following one alias: <br> - M\.A\.G\. Tech,/, '$0 <br> <br>')
         entity = entity.toString().replaceAll(/-MEO GMBH/, '$0.')
@@ -212,23 +235,27 @@ class BoiSecurities {
     }
 
     def sanitizeAddress(def entity, def entityName) {
-        //println entity
+
         def tempAddress = entity.toString().replace(entityName, "")
         def tempMatcher;
         //println tempAddress
 
         tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
+        //println entity
+
         tempAddress = tempAddress.replaceAll(/(?i)(Province 211100)(;\sand.+?188.+?100)(;\sand.+?31.+?1201)(;\sand.+?jun\sAv.+?Nanjing)/, '$1,China $2,China $3,China $4,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Development Zone)(;\sand.+Hunan Province)(;\sand.+410221)/, '$1,China $2,China $3,China')
-        tempAddress = tempAddress.replaceAll(/(?i)(Quanzhou, Fujian)(.+District, Shanghai)(;\sand.+District, Chengdu)(;\sand.+District, Wuhan)(;\sand.+District, Luoyang)(;\sand.+District, Hefei)(;\sand.+Zone)/, '$1,China $2,China $3,China $4,China $5,China $6,China $7,China')
+        tempAddress = tempAddress.replaceAll(/(?i)(Quanzhou, Fujian)(.+?District, Shanghai)(;\sand.+?District, Chengdu)(;\sand.+?District, Wuhan)(;\sand.+?District, Luoyang)(;\sand.+?District, Hefei)(;\sand.+?Zone)(;\sand.+?ing)/, '$1,China $2,China $3,China $4,China $5,China $6,China $7,China $8,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Shaanxi)(;\sand.+Shenzhen City)(;\sand.+Zhongshan City)(;\sand.+Zhejiang Province)/, '$1,China $2,China $3,China $4, China')
         tempAddress = tempAddress.replaceAll(/(?i)(19,.+?Savitaipale)/, '$1,Finland')
         tempAddress = tempAddress.replaceAll(/(?i)(P\.O\..+42908)\sDE(;\sand.+42908)\sDE/, '$1,Germany $2,Germany')
         tempAddress = tempAddress.replaceAll(/(?i)(22,.+Moscow\s127055Ru)/, '$1,Russia')
         tempAddress = tempAddress.replaceAll(/(?i)(in.+?Okhotsk)/, '$1,Russia')
         tempAddress = tempAddress.replaceAll(/(?i)(1A.+?Zhubei.+?30274)/, '$1,Taiwan')
+        tempAddress = tempAddress.replaceAll(/(?i)(;\sand\sNo\..+?an\sRd.+?ina),/, '$1;')
 
         tempAddress = tempAddress.replaceAll(/(?i)(shops.+?Emirates\.;\s)(P\..+?Emirates\.)/, 'and$1and$2;')
+        tempAddress = tempAddress.replaceAll(/(?i)(China,\sand)/, 'China; and')
 
 
         tempMatcher = tempAddress =~ /^,,?\s?(.+)/
@@ -243,8 +270,6 @@ class BoiSecurities {
 
 
     def sanitizeAddressWithAKA(def entity, def entityName) {
-
-
 
         def tempAddress = entity.toString().replace(entityName, "")
         tempAddress = tempAddress.replaceAll(/<br>|<em>|<\/em>/, "")
@@ -293,6 +318,11 @@ class BoiSecurities {
         tempAddress = tempAddress.replaceAll(/(?i)(Suite\s801.+?8\sCa.+?Beijing)(;\sand.+?hai\s\d{6})(;\sand.+?Tian.+?\d{6})(;\sand.+?an,\s\d{6})(;\sand.+?gdu,\s\d{6})(;\s)(.+?gdu\s\d{6})(;\sand.+?zhou,\s\d{6})(;\sand.+?hang,\s\d{6})/, '$1,China$2,China$3,China$4,China$5,China$6and$7,China$8,China$9,China')
         tempAddress = tempAddress.replaceAll(/(?i)(Bud\.\s9.+?str\.,\sV.+?433,\s)and(.+)/, '$1$2')
         tempAddress = tempAddress.replaceAll(/(?i)(Let\..+?ya\,\s5.+?ssia)(.+?burg\s19.+?ia)(.+?ya\sSt.+?ia)/, '$1; and$2; and$3; and')
+        tempAddress = tempAddress.replaceAll(/(?i)(Unit\s07-.+?yi\sH.+?kong)/, '$1;')
+        tempAddress = tempAddress.replaceAll(/(?i)(4-4-2301.+?loon.+?kong;\s)/, '$1and')
+
+
+        tempAddress = tempAddress.replaceAll(/(?i)(China,?\sand)/, 'China; and')
 
 
         //println tempAddress
@@ -319,7 +349,6 @@ class BoiSecurities {
 
 
         nameAndAlias = sanitizeNameAndAliasEntity(nameAndAlias)
-        if (nameAndAlias.contains("Pakistan Atomic Energy Commission (PAEC)")) println "Pakistan Multiple alias : $nameAndAlias"
         //println " ${count++} | $nameAndAlias"
 
         //def nameList = nameAndAlias.toString().split(/(?i)a\.k\.a.+?(?:Alias|Aliases):/).collect { it }
@@ -342,7 +371,7 @@ class BoiSecurities {
             tempAliasFkaList = name.toString().split(/\(?f\.k\.a\.,?/).collect { it }
             name = tempAliasFkaList[0]
             tempAliasFkaList.remove(0)
-            tempAliasFkaList.each {aliasList.add(it)}
+            tempAliasFkaList.each { aliasList.add(it) }
         }
         //println "Name : ${name} ======== AliasList : $aliasList"
         aliasList = sanitizeAliasList(aliasList)
@@ -397,10 +426,12 @@ class BoiSecurities {
 
     def sanitizeName(String name) {
         def tempName = name.toString()
+        //tempName = tempName.replaceAll(/(?i)^.+?(?=\w)/, '')
         tempName = tempName.replaceAll(/(?i)(.+),\s*$/, '$1')
         tempName = tempName.replaceAll(/(?i)(.+)\(\s*$/, '$1')
         tempName = tempName.replaceAll(/(?i)(.+),\s*$/, '$1')
         tempName = tempName.replaceAll(/(?s)\s+/, " ")
+
 
         //println name
         return tempName.trim()
