@@ -77,7 +77,7 @@ class BoiSecurities {
             entity = mainEntitySanitize(entity)
             if (entity.contains("Bhabha Atomic")) {
                 entity.split(/<br>/).each { item -> distributionData(item) }
-            } else if (entity.contains("No. 11 Research") || entity.contains("Corporation 13th Research") || entity.contains("Hebei Envoltek E")|| entity.contains("Micro Electronic Te")) {
+            } else if (entity.contains("No. 11 Research") || entity.contains("Corporation 13th Research") || entity.contains("Hebei Envoltek E")|| entity.contains("Micro Electronic Te")|| entity.contains("tion 14th Research In") || entity.contains("tion 38th Research Ins")) {
                 entity.split(/split/).each { item -> distributionData(item) }
             } else {
                 distributionData(entity)
@@ -148,6 +148,8 @@ class BoiSecurities {
         mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sEl.+?11\sRese.+?ses,)(?:.+?)(<br>.+?RI\)\.)(\s<br>.+?pany\.)(\s<br>.+?IR\.)(.+)/, '$1 $2$5 $3$5 $4$5')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(<em>Sub.+?ate\s.+?tion<\/em><br>)(?=Envoltek)/, "")
         mainEntity = mainEntity.toString().replaceAll(/(?i)(<em>Sub.+?ate\s.+?tion<\/em><br>)(?=Micro)/, "")
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sElec.+?ute\s14.)(\s<br>.+?subordinate.+?sea.+?tion)\.(\s<br>.+?logy)\.(?:\s.+?tions:)(\s.+)/, '$1$4$2,$4$3,$4')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sEle.+?38.+?tute.+?38\.)(\s<br>.+?)\.(\s<br>.+?ics)\.(\s<br>.+?al)\.(\s<br>.+?ic)\.(\s<br>.+?gy)\.(\s<br>.+?gy)\.(\s<br>.+?tz)\.\s(<br>\s<br>)(?:\sThe.+?tions:)(\s199.+)/, '$1 $9$10 $2,$10 $3,$10 $4,$10 $5,$10 $6,$10 $7,$10 $8,$10')
 
 
         mainEntity = mainEntity.toString().replaceAll(/(?i)(?:<br><em>Subordinate Institution:?<\/em>)(?:\s<br>)?/, "split")
@@ -528,4 +530,5 @@ class BoiSecurities {
 
 
 }
+
 
