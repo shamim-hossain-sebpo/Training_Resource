@@ -75,9 +75,12 @@ class BoiSecurities {
             allEntity.push(entity)
 
             entity = mainEntitySanitize(entity)
+
+            println "${i++}| $entity"
+
             if (entity.contains("Bhabha Atomic")) {
                 entity.split(/<br>/).each { item -> distributionData(item) }
-            } else if (entity.contains("No. 11 Research") || entity.contains("Corporation 13th Research") || entity.contains("Hebei Envoltek E")|| entity.contains("Micro Electronic Te")|| entity.contains("tion 14th Research In") || entity.contains("tion 38th Research Ins")) {
+            } else if (entity.contains("No. 11 Research") || entity.contains("Corporation 13th Research") || entity.contains("Hebei Envoltek E")|| entity.contains("Micro Electronic Te")|| entity.contains("tion 14th Research In") || entity.contains("tion 38th Research Ins") || entity.contains("ion 55th Research Inst")|| entity.contains("China Aerospace Science and Industry Corporation Second Academy,")|| entity.contains("201 Research Institute") || entity.contains("208th Research Institute")) {
                 entity.split(/split/).each { item -> distributionData(item) }
             } else {
                 distributionData(entity)
@@ -131,12 +134,15 @@ class BoiSecurities {
 
             } else {
 //                    if (entity.contains("a.k.a") && !entity.contains("<br>"))
-                println "${i++}| $entity"
+                //println "${i++}| $entity"
             }
         }
     }
 
     def mainEntitySanitize(def mainEntity) {
+
+        String addrForChinaAero = "<br> <br> 50 Yongding Road, Haidian District, Beijing, China; <em>and</em> 51 Yongding Road, Haidian District, Beijing, China; <em>and</em> 52 Yongding Road, Haidian District, Beijing, China; <em>and</em> 58 Yongding Road, Haidian District, Beijing, China; <em>and</em> 90 Dianzi Road, Section One, Xian, China."
+
         mainEntity = mainEntity.toString().replaceAll(/(U\.A\.E)/, 'United Arab Emirates')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(\(See\s(?:alternate|also).+?\))/, "")
         mainEntity = mainEntity.toString().replaceAll(/(?i)(.+?Ministry.+?Republic.+?Belarus),(.+?Wherever located)(.+)/, '$1($2),Belarus')
@@ -150,6 +156,9 @@ class BoiSecurities {
         mainEntity = mainEntity.toString().replaceAll(/(?i)(<em>Sub.+?ate\s.+?tion<\/em><br>)(?=Micro)/, "")
         mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sElec.+?ute\s14.)(\s<br>.+?subordinate.+?sea.+?tion)\.(\s<br>.+?logy)\.(?:\s.+?tions:)(\s.+)/, '$1$4$2,$4$3,$4')
         mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sEle.+?38.+?tute.+?38\.)(\s<br>.+?)\.(\s<br>.+?ics)\.(\s<br>.+?al)\.(\s<br>.+?ic)\.(\s<br>.+?gy)\.(\s<br>.+?gy)\.(\s<br>.+?tz)\.\s(<br>\s<br>)(?:\sThe.+?tions:)(\s199.+)/, '$1 $9$10 $2,$10 $3,$10 $4,$10 $5,$10 $6,$10 $7,$10 $8,$10')
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(China\sAerospace.+?nd\sAca.+?gy\s.+?ics\sTec.+?\.)(\s<br>.+?ing\sDep.+?\.)(\s<br>.+?BIRM.)(.+?ent\.)/, '$1'+addrForChinaAero+'$2'+addrForChinaAero+'$3'+addrForChinaAero+'$4'+addrForChinaAero)
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(?:<em>Sub.+?<br>)(201.+?a\.k\..+?al\sCenter\.)(\s<br>.+?and\sMeas.+?\.)(\s<br>.+?706th.+?\.)(\s<br>.+?and\s.+?\.)(.+?stics\.)/, '$1'+addrForChinaAero+'$2'+addrForChinaAero+'$3'+addrForChinaAero+'$4'+addrForChinaAero+'$5'+addrForChinaAero)
+        mainEntity = mainEntity.toString().replaceAll(/(?i)(?:<em>Sub.+?<br>)(208th.+?Center\.)(\s<br>.+?210th.+?tute\.)(\s<br>.+?283.+?tory\.)(\s<br>.+?ment\.)(.+?tory\.)/, '$1'+addrForChinaAero+'$2'+addrForChinaAero+'$3'+addrForChinaAero+'$4'+addrForChinaAero+'$5'+addrForChinaAero)
 
 
         mainEntity = mainEntity.toString().replaceAll(/(?i)(?:<br><em>Subordinate Institution:?<\/em>)(?:\s<br>)?/, "split")
